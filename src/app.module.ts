@@ -2,9 +2,10 @@ import { Module } from '@nestjs/common';
 import { SongsModule } from './modules/songs/songs.module';
 import { UsersModule } from './modules/users/users.module';
 import { PingModule } from './modules/ping/ping.module';
+import { TagsModule } from './modules/tags/tags.module';
 
 @Module({
-  imports: [SongsModule, UsersModule, PingModule],
+  imports: [SongsModule, UsersModule, PingModule, TagsModule],
   controllers: [],
   providers: [],
 })
