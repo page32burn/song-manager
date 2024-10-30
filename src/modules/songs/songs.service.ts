@@ -12,4 +12,8 @@ export class SongsService {
   getAll(): Song[] {
     return this.songs;
   }
+
+  show(id: number): Song {
+    return this.songs.find((song) => song.id === +id);
+  }
 }
