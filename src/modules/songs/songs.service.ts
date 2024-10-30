@@ -3,11 +3,7 @@ import { Song } from './song.interface';
 
 @Injectable()
 export class SongsService {
-  private readonly songs: Song[] = [
-    { id: 1, name: 'Song 1' },
-    { id: 2, name: 'Song 2' },
-    { id: 3, name: 'Song 3' },
-  ];
+  private readonly songs: Song[] = [];
 
   getAll(): Song[] {
     return this.songs;
@@ -15,5 +11,22 @@ export class SongsService {
 
   show(id: number): Song {
     return this.songs.find((song) => song.id === +id);
+  }
+
+  create(song: Song): Song {
+    this.songs.push(song);
+    return song;
+  }
+
+  update(id: number, song: Song): Song {
+    const index = this.songs.findIndex((song) => song.id === id);
+    this.songs[index] = song;
+    return song;
+  }
+
+  delete(id: number): Song {
+    const index = this.songs.findIndex((song) => song.id === id);
+    this.songs.splice(index, 1);
+    return;
   }
 }
