@@ -1,12 +1,29 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { SongsService } from './songs.service';
+import { Song } from './song.interface';
 
 describe('SongsService', () => {
   let service: SongsService;
 
+  const mockSongsService = {
+    getAll: jest.fn((): Song[] => [
+      { id: 1, name: 'Song 1' },
+      { id: 2, name: 'Song 2' },
+    ]),
+    show: jest.fn((id: number): Song => ({ id, name: `Song 1` })),
+    create: jest.fn((song: Song): Song => song),
+    update: jest.fn((id: number, song: Song): Song => song),
+    delete: jest.fn((id: number) => id),
+  };
+
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [SongsService],
+      providers: [
+        {
+          provide: SongsService,
+          useValue: mockSongsService,
+        },
+      ],
     }).compile();
 
     service = module.get<SongsService>(SongsService);
@@ -14,5 +31,27 @@ describe('SongsService', () => {
 
   it('should be defined', () => {
     expect(service).toBeDefined();
+  });
+
+  it('getAll', () => {
+    expect(service.getAll()).toHaveLength(2);
+  });
+
+  it('show', () => {
+    expect(service.show(1)).toEqual({ id: 1, name: 'Song 1' });
+  });
+
+  it('create', () => {
+    const song = { id: 3, name: 'Song 3' };
+    expect(service.create(song)).toEqual(song);
+  });
+
+  it('update', () => {
+    const song = { id: 3, name: 'Song 3' };
+    expect(service.update(3, song)).toEqual(song);
+  });
+
+  it('delete', () => {
+    expect(service.delete(1)).toBe(1);
   });
 });
