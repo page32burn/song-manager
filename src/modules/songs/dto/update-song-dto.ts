@@ -1,4 +1,8 @@
+import { IsNotEmpty, IsString, MaxLength } from 'class-validator';
+
 export class UpdateSongDto {
-  id: number;
+  @IsString()
+  @MaxLength(255)
+  @IsNotEmpty()
   name: string;
 }

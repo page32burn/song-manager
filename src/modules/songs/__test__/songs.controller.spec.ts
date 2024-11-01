@@ -1,7 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { SongsController } from './songs.controller';
-import { SongsService } from './songs.service';
-import { Song } from './song.interface';
+import { SongsController } from '../songs.controller';
+import { SongsService } from '../songs.service';
+import { Song } from '../song.interface';
+import { UpdateSongDto } from '../dto/update-song-dto';
+import { CreateSongDto } from '../dto/create-song-dto';
 
 describe('SongsController', () => {
   let controller: SongsController;
@@ -13,8 +15,10 @@ describe('SongsController', () => {
       { id: 'id2', name: 'Song 2' },
     ]),
     show: jest.fn((id: string): Song => ({ id, name: `Song 1` })),
-    create: jest.fn((song: Song): Song => song),
-    update: jest.fn((_id: string, song: Song): Song => song),
+    create: jest.fn((song: CreateSongDto): Song => ({ id: 'id3', ...song })),
+    update: jest.fn(
+      (id: string, song: UpdateSongDto): Song => ({ id, ...song }),
+    ),
     delete: jest.fn((id: string) => id),
   };
 
@@ -60,20 +64,20 @@ describe('SongsController', () => {
   describe('create', () => {
     it('should create a song', () => {
       const id = 'id3';
-      const song: Song = { id: id, name: 'Song 3' };
+      const song: CreateSongDto = { name: 'Song 3' };
       const result = controller.create(song);
       expect(service.create).toHaveBeenCalledWith(song);
-      expect(result).toEqual(song);
+      expect(result).toEqual({ id, ...song });
     });
   });
 
   describe('update', () => {
     it('should update a song by id', () => {
       const id = 'id1';
-      const song: Song = { id: id, name: 'Song 1 updated' };
+      const song: UpdateSongDto = { name: 'Song 1 updated' };
       const result = controller.update(id, song);
       expect(service.update).toHaveBeenCalledWith(id, song);
-      expect(result).toEqual(song);
+      expect(result).toEqual({ id, ...song });
     });
   });
 

@@ -10,6 +10,7 @@ import {
 import { SongsService } from './songs.service';
 import { Song } from './song.interface';
 import { CreateSongDto } from './dto/create-song-dto';
+import { UpdateSongDto } from './dto/update-song-dto';
 
 @Controller('songs')
 export class SongsController {
@@ -31,7 +32,7 @@ export class SongsController {
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() song: Song) {
+  update(@Param('id') id: string, @Body() song: UpdateSongDto) {
     return this.SongsService.update(id, song);
   }
 
