@@ -14,7 +14,7 @@ describe('SongsController', () => {
     ]),
     show: jest.fn((id: number): Song => ({ id, name: `Song 1` })),
     create: jest.fn((song: Song): Song => song),
-    update: jest.fn((id: number, song: Song): Song => song),
+    update: jest.fn((_id: number, song: Song): Song => song),
     delete: jest.fn((id: number) => id),
   };
 
