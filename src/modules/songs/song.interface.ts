@@ -1,4 +1,6 @@
+import { UUID } from 'src/types/uuid';
+
 export interface Song {
-  id: number;
+  id: UUID;
   name: string;
 }

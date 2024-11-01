@@ -8,13 +8,13 @@ describe('SongsService', () => {
 
   const mockSongsService = {
     getAll: jest.fn((): Song[] => [
-      { id: 1, name: 'Song 1' },
-      { id: 2, name: 'Song 2' },
+      { id: 'id1', name: 'Song 1' },
+      { id: 'id2', name: 'Song 2' },
     ]),
-    show: jest.fn((id: number): Song => ({ id, name: `Song 1` })),
+    show: jest.fn((id: string): Song => ({ id, name: `Song 1` })),
     create: jest.fn(
       (createSongDto: CreateSongDto): Song => ({
-        id: 3,
+        id: 'id3',
         name: createSongDto.name,
       }),
     ),
@@ -44,20 +44,23 @@ describe('SongsService', () => {
   });
 
   it('show', () => {
-    expect(service.show(1)).toEqual({ id: 1, name: 'Song 1' });
+    const id = 'id1';
+    expect(service.show(id)).toEqual({ id: id, name: 'Song 1' });
   });
 
   it('create', () => {
-    const createSongDto = { name: 'Song 3' };
-    expect(service.create(createSongDto)).toEqual({ id: 3, name: 'Song 3' });
+    const name = 'Song 3';
+    const createSongDto = { name: name };
+    expect(service.create(createSongDto)).toEqual({ id: 'id3', name: name });
   });
 
   it('update', () => {
-    const song = { id: 3, name: 'Song 3' };
-    expect(service.update(3, song)).toEqual(song);
+    const song = { id: 'id3', name: 'Song 3' };
+    expect(service.update('id3', song)).toEqual(song);
   });
 
   it('delete', () => {
-    expect(service.delete(1)).toBe(1);
+    const id = 'id1';
+    expect(service.delete(id)).toBe(id);
   });
 });

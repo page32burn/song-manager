@@ -9,13 +9,13 @@ describe('SongsController', () => {
 
   const mockSongsService = {
     getAll: jest.fn((): Song[] => [
-      { id: 1, name: 'Song 1' },
-      { id: 2, name: 'Song 2' },
+      { id: 'id1', name: 'Song 1' },
+      { id: 'id2', name: 'Song 2' },
     ]),
-    show: jest.fn((id: number): Song => ({ id, name: `Song 1` })),
+    show: jest.fn((id: string): Song => ({ id, name: `Song 1` })),
     create: jest.fn((song: Song): Song => song),
-    update: jest.fn((_id: number, song: Song): Song => song),
-    delete: jest.fn((id: number) => id),
+    update: jest.fn((_id: string, song: Song): Song => song),
+    delete: jest.fn((id: string) => id),
   };
 
   beforeEach(async () => {
@@ -41,8 +41,8 @@ describe('SongsController', () => {
     it('should return an array of songs', () => {
       const result = controller.get();
       expect(result).toEqual([
-        { id: 1, name: 'Song 1' },
-        { id: 2, name: 'Song 2' },
+        { id: 'id1', name: 'Song 1' },
+        { id: 'id2', name: 'Song 2' },
       ]);
       expect(service.getAll).toHaveBeenCalled();
     });
@@ -50,15 +50,17 @@ describe('SongsController', () => {
 
   describe('show', () => {
     it('should return a song by id', () => {
-      const result = controller.show(1);
-      expect(service.show).toHaveBeenCalledWith(1);
-      expect(result).toEqual({ id: 1, name: 'Song 1' });
+      const id = 'id1';
+      const result = controller.show(id);
+      expect(service.show).toHaveBeenCalledWith(id);
+      expect(result).toEqual({ id: id, name: 'Song 1' });
     });
   });
 
   describe('create', () => {
     it('should create a song', () => {
-      const song: Song = { id: 3, name: 'Song 3' };
+      const id = 'id3';
+      const song: Song = { id: id, name: 'Song 3' };
       const result = controller.create(song);
       expect(service.create).toHaveBeenCalledWith(song);
       expect(result).toEqual(song);
@@ -67,18 +69,20 @@ describe('SongsController', () => {
 
   describe('update', () => {
     it('should update a song by id', () => {
-      const song: Song = { id: 1, name: 'Song 1 updated' };
-      const result = controller.update(1, song);
-      expect(service.update).toHaveBeenCalledWith(1, song);
+      const id = 'id1';
+      const song: Song = { id: id, name: 'Song 1 updated' };
+      const result = controller.update(id, song);
+      expect(service.update).toHaveBeenCalledWith(id, song);
       expect(result).toEqual(song);
     });
   });
 
   describe('delete', () => {
     it('should delete a song by id', () => {
-      const result = controller.delete(1);
-      expect(service.delete).toHaveBeenCalledWith(1);
-      expect(result).toEqual(1);
+      const id = 'id1';
+      const result = controller.delete(id);
+      expect(service.delete).toHaveBeenCalledWith(id);
+      expect(result).toEqual(id);
     });
   });
 });

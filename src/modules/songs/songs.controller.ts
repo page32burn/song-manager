@@ -21,7 +21,7 @@ export class SongsController {
   }
 
   @Get(':id')
-  show(@Param('id') id: number): Song {
+  show(@Param('id') id: string): Song {
     return this.SongsService.show(id);
   }
 
@@ -31,12 +31,12 @@ export class SongsController {
   }
 
   @Put(':id')
-  update(@Param('id') id: number, @Body() song: Song) {
-    return this.SongsService.update(+id, song);
+  update(@Param('id') id: string, @Body() song: Song) {
+    return this.SongsService.update(id, song);
   }
 
   @Delete(':id')
-  delete(@Param('id') id: number) {
-    return this.SongsService.delete(+id);
+  delete(@Param('id') id: string) {
+    return this.SongsService.delete(id);
   }
 }
