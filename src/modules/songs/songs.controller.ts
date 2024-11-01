@@ -9,6 +9,7 @@ import {
 } from '@nestjs/common';
 import { SongsService } from './songs.service';
 import { Song } from './song.interface';
+import { CreateSongDto } from './dto/create-song-dto';
 
 @Controller('songs')
 export class SongsController {
@@ -25,7 +26,7 @@ export class SongsController {
   }
 
   @Post()
-  create(@Body() song: Song): Song {
+  create(@Body() song: CreateSongDto): Song {
     return this.SongsService.create(song);
   }
 

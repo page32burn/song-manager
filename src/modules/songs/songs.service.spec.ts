@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { SongsService } from './songs.service';
 import { Song } from './song.interface';
+import { CreateSongDto } from './dto/create-song-dto';
 
 describe('SongsService', () => {
   let service: SongsService;
@@ -11,7 +12,12 @@ describe('SongsService', () => {
       { id: 2, name: 'Song 2' },
     ]),
     show: jest.fn((id: number): Song => ({ id, name: `Song 1` })),
-    create: jest.fn((song: Song): Song => song),
+    create: jest.fn(
+      (createSongDto: CreateSongDto): Song => ({
+        id: 3,
+        name: createSongDto.name,
+      }),
+    ),
     update: jest.fn((_id: number, song: Song): Song => song),
     delete: jest.fn((id: number) => id),
   };
@@ -42,8 +48,8 @@ describe('SongsService', () => {
   });
 
   it('create', () => {
-    const song = { id: 3, name: 'Song 3' };
-    expect(service.create(song)).toEqual(song);
+    const createSongDto = { name: 'Song 3' };
+    expect(service.create(createSongDto)).toEqual({ id: 3, name: 'Song 3' });
   });
 
   it('update', () => {
