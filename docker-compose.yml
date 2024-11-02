@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  api:
+    container_name: nestjs_api
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - prisma-volumn:/app/prisma
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=mysql://root:password@db:3306/database
+    command: sh -c "npx prisma migrate deploy && npm run start:dev"
+
+  db:
+    container_name: mysql_db
+    image: mysql:8.0
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_DATABASE=database
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=password
+      - MYSQL_ROOT_PASSWORD=password
+      - ASIA/TOKYO
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data:
+  prisma-volumn:

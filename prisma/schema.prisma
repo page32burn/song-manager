@@ -1,0 +1,25 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Song {
+  id String @id @default(uuid())
+  name String
+  bpm Int
+  tags Tag[] @relation("SongTags")
+
+  @@map("songs")
+}
+
+model Tag {
+  id Int @default(autoincrement()) @id
+  name String
+  songs Song[] @relation("SongTags")
+
+  @@map("tags")
+}
