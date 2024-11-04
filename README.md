@@ -51,3 +51,9 @@ docker exec -it <mysqlのコンテナID> sh
 mysql -u root -p
 ```
 
+# dockerを落とす時
+```bash
+docker-compose down
+docker volume prune
+docker rmi $(docker images -q)
+```

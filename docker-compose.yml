@@ -12,7 +12,6 @@ services:
     volumes:
       - .:/app
       - /app/node_modules
-      - prisma-volumn:/app/prisma
     depends_on:
       - db
     environment:
@@ -26,12 +25,12 @@ services:
       - "3306:3306"
     environment:
       - MYSQL_DATABASE=database
-      - MYSQL_USER=user
-      - MYSQL_PASSWORD=password
+      - MYSQL_USER=songmanageruser
+      - MYSQL_PASSWORD=songmanageruserpassword
       - MYSQL_ROOT_PASSWORD=password
       - ASIA/TOKYO
     volumes:
-      - mysql_data:/var/lib/mysql
+      - ./docker/db/my.cnf:/etc/mysql/conf.d/my.cnf
 
 volumes:
   mysql_data:
