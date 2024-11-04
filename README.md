@@ -48,7 +48,7 @@ docker exec -it <mysqlのコンテナID> sh
 ```
 
 ```bash
-mysql -u root -p
+mysql -u root -ppassword
 ```
 
 # dockerを落とす時

@@ -17,7 +17,7 @@ export class SongsController {
   constructor(private readonly SongsService: SongsService) {}
 
   @Get()
-  get(): Song[] {
+  get(): Promise<Song[]> {
     return this.SongsService.getAll();
   }
 
@@ -27,7 +27,7 @@ export class SongsController {
   }
 
   @Post()
-  create(@Body() song: CreateSongDto): Song {
+  create(@Body() song: CreateSongDto): Promise<Song> {
     return this.SongsService.create(song);
   }
 
