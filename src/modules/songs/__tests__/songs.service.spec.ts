@@ -1,23 +1,35 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { SongsService } from '../songs.service';
-import { Song } from '../song.interface';
 import { CreateSongDto } from '../dto/create-song-dto';
 import { UpdateSongDto } from '../dto/update-song-dto';
+import { Song } from '@prisma/client';
 
 describe('SongsService', () => {
   let service: SongsService;
+  const createdAt = new Date();
+  const updatedAt = new Date();
 
   const mockSongsService = {
     getAll: jest.fn((): Song[] => [
-      { id: 'id1', name: 'Song 1', bpm: 120 },
-      { id: 'id2', name: 'Song 2', bpm: 120 },
+      { id: 'id1', name: 'Song 1', bpm: 120, createdAt, updatedAt },
+      { id: 'id2', name: 'Song 2', bpm: 120, createdAt, updatedAt },
     ]),
-    show: jest.fn((id: string): Song => ({ id, name: 'Song 1', bpm: 120 })),
+    show: jest.fn(
+      (id: string): Song => ({
+        id,
+        name: 'Song 1',
+        bpm: 120,
+        createdAt,
+        updatedAt,
+      }),
+    ),
     create: jest.fn(
       (createSongDto: CreateSongDto): Song => ({
         id: 'id3',
         name: createSongDto.name,
         bpm: createSongDto.bpm,
+        createdAt,
+        updatedAt,
       }),
     ),
     update: jest.fn(
@@ -25,6 +37,8 @@ describe('SongsService', () => {
         id,
         name: song.name,
         bpm: song.bpm,
+        createdAt,
+        updatedAt,
       }),
     ),
     delete: jest.fn((id: number) => id),
@@ -53,21 +67,38 @@ describe('SongsService', () => {
 
   it('show', () => {
     const id = 'id1';
-    expect(service.show(id)).toEqual({ id: id, name: 'Song 1', bpm: 120 });
+    expect(service.show(id)).toEqual({
+      id: id,
+      name: 'Song 1',
+      bpm: 120,
+      createdAt,
+      updatedAt,
+    });
   });
 
   it('create', () => {
     const name = 'Song 3';
     const bpm = 120;
     const createSongDto = { name, bpm };
-    expect(service.create(createSongDto)).toEqual({ id: 'id3', name, bpm });
+    expect(service.create(createSongDto)).toEqual({
+      id: 'id3',
+      name,
+      bpm,
+      createdAt,
+      updatedAt,
+    });
   });
 
   describe('update', () => {
     it('should return updated song', () => {
       const id = 'id3';
       const song = { name: 'Song 3', bpm: 120 };
-      expect(service.update(id, song)).toEqual({ id, ...song });
+      expect(service.update(id, song)).toEqual({
+        id,
+        ...song,
+        createdAt,
+        updatedAt,
+      });
     });
   });
 

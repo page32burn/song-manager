@@ -8,7 +8,7 @@ import {
   Put,
 } from '@nestjs/common';
 import { SongsService } from './songs.service';
-import { Song } from './song.interface';
+import { Song } from '@prisma/client';
 import { CreateSongDto } from './dto/create-song-dto';
 import { UpdateSongDto } from './dto/update-song-dto';
 

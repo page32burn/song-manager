@@ -1,12 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { Song } from './song.interface';
 import { CreateSongDto } from './dto/create-song-dto';
 import { UpdateSongDto } from './dto/update-song-dto';
 import { PrismaService } from '../../prisma/prisma.service';
+import { Song } from '@prisma/client';
 @Injectable()
 export class SongsService {
   constructor(private readonly prisma: PrismaService) {}
-  private readonly songs: Song[] = [];
 
   async getAll(): Promise<Song[]> {
     return this.prisma.song.findMany({
