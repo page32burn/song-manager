@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { Song } from './song.interface';
 import { CreateSongDto } from './dto/create-song-dto';
 import { UpdateSongDto } from './dto/update-song-dto';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '../../prisma/prisma.service';
 @Injectable()
 export class SongsService {
   constructor(private readonly prisma: PrismaService) {}

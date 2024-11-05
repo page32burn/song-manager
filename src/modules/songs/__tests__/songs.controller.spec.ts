@@ -11,13 +11,17 @@ describe('SongsController', () => {
 
   const mockSongsService = {
     getAll: jest.fn((): Song[] => [
-      { id: 'id1', name: 'Song 1' },
-      { id: 'id2', name: 'Song 2' },
+      { id: 'id1', name: 'Song 1', bpm: 120 },
+      { id: 'id2', name: 'Song 2', bpm: 120 },
     ]),
-    show: jest.fn((id: string): Song => ({ id, name: `Song 1` })),
+    show: jest.fn((id: string): Song => ({ id, name: 'Song 1', bpm: 120 })),
     create: jest.fn((song: CreateSongDto): Song => ({ id: 'id3', ...song })),
     update: jest.fn(
-      (id: string, song: UpdateSongDto): Song => ({ id, ...song }),
+      (id: string, song: UpdateSongDto): Song => ({
+        id,
+        name: song.name,
+        bpm: song.bpm,
+      }),
     ),
     delete: jest.fn((id: string) => id),
   };
@@ -45,8 +49,8 @@ describe('SongsController', () => {
     it('should return an array of songs', () => {
       const result = controller.get();
       expect(result).toEqual([
-        { id: 'id1', name: 'Song 1' },
-        { id: 'id2', name: 'Song 2' },
+        { id: 'id1', name: 'Song 1', bpm: 120 },
+        { id: 'id2', name: 'Song 2', bpm: 120 },
       ]);
       expect(service.getAll).toHaveBeenCalled();
     });
@@ -57,14 +61,14 @@ describe('SongsController', () => {
       const id = 'id1';
       const result = controller.show(id);
       expect(service.show).toHaveBeenCalledWith(id);
-      expect(result).toEqual({ id: id, name: 'Song 1' });
+      expect(result).toEqual({ id: id, name: 'Song 1', bpm: 120 });
     });
   });
 
   describe('create', () => {
     it('should create a song', () => {
       const id = 'id3';
-      const song: CreateSongDto = { name: 'Song 3' };
+      const song: CreateSongDto = { name: 'Song 3', bpm: 120 };
       const result = controller.create(song);
       expect(service.create).toHaveBeenCalledWith(song);
       expect(result).toEqual({ id, ...song });

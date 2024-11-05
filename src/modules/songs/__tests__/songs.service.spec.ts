@@ -9,18 +9,23 @@ describe('SongsService', () => {
 
   const mockSongsService = {
     getAll: jest.fn((): Song[] => [
-      { id: 'id1', name: 'Song 1' },
-      { id: 'id2', name: 'Song 2' },
+      { id: 'id1', name: 'Song 1', bpm: 120 },
+      { id: 'id2', name: 'Song 2', bpm: 120 },
     ]),
-    show: jest.fn((id: string): Song => ({ id, name: `Song 1` })),
+    show: jest.fn((id: string): Song => ({ id, name: 'Song 1', bpm: 120 })),
     create: jest.fn(
       (createSongDto: CreateSongDto): Song => ({
         id: 'id3',
         name: createSongDto.name,
+        bpm: createSongDto.bpm,
       }),
     ),
     update: jest.fn(
-      (id: string, song: UpdateSongDto): Song => ({ id, ...song }),
+      (id: string, song: UpdateSongDto): Song => ({
+        id,
+        name: song.name,
+        bpm: song.bpm,
+      }),
     ),
     delete: jest.fn((id: number) => id),
   };
@@ -48,13 +53,14 @@ describe('SongsService', () => {
 
   it('show', () => {
     const id = 'id1';
-    expect(service.show(id)).toEqual({ id: id, name: 'Song 1' });
+    expect(service.show(id)).toEqual({ id: id, name: 'Song 1', bpm: 120 });
   });
 
   it('create', () => {
     const name = 'Song 3';
-    const createSongDto = { name: name };
-    expect(service.create(createSongDto)).toEqual({ id: 'id3', name: name });
+    const bpm = 120;
+    const createSongDto = { name, bpm };
+    expect(service.create(createSongDto)).toEqual({ id: 'id3', name, bpm });
   });
 
   it('update', () => {
