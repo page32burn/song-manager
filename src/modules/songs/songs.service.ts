@@ -16,8 +16,13 @@ export class SongsService {
     });
   }
 
-  show(id: string): Song {
-    return this.songs.find((song) => song.id === id);
+  show(id: string): Promise<Song> {
+    return this.prisma.song.findUnique({
+      where: { id },
+      include: {
+        tags: true,
+      },
+    });
   }
 
   async create(createSongDto: CreateSongDto): Promise<Song> {
@@ -58,9 +63,9 @@ export class SongsService {
     });
   }
 
-  delete(id: string): Song {
-    const index = this.songs.findIndex((song) => song.id === id);
-    this.songs.splice(index, 1);
-    return;
+  delete(id: string): Promise<Song> {
+    return this.prisma.song.delete({
+      where: { id },
+    });
   }
 }

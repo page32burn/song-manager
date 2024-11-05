@@ -63,10 +63,12 @@ describe('SongsService', () => {
     expect(service.create(createSongDto)).toEqual({ id: 'id3', name, bpm });
   });
 
-  it('update', () => {
-    const id = 'id3';
-    const song = { name: 'Song 3' };
-    expect(service.update(id, song)).toEqual({ id, ...song });
+  describe('update', () => {
+    it('should return updated song', () => {
+      const id = 'id3';
+      const song = { name: 'Song 3', bpm: 120 };
+      expect(service.update(id, song)).toEqual({ id, ...song });
+    });
   });
 
   it('delete', () => {

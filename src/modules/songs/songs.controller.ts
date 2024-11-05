@@ -22,7 +22,7 @@ export class SongsController {
   }
 
   @Get(':id')
-  show(@Param('id') id: string): Song {
+  show(@Param('id') id: string): Promise<Song> {
     return this.SongsService.show(id);
   }
 
