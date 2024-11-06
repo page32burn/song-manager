@@ -12,7 +12,7 @@ describe('SongsController', () => {
   const updatedAt = new Date();
 
   const mockSongsService = {
-    getAll: jest.fn((): Song[] => [
+    get: jest.fn((): Song[] => [
       {
         id: 'id1',
         name: 'Song 1',
@@ -83,7 +83,7 @@ describe('SongsController', () => {
         { id: 'id1', name: 'Song 1', bpm: 120, createdAt, updatedAt },
         { id: 'id2', name: 'Song 2', bpm: 120, createdAt, updatedAt },
       ]);
-      expect(service.getAll).toHaveBeenCalled();
+      expect(service.get).toHaveBeenCalled();
     });
   });
 

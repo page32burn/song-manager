@@ -1,7 +1,7 @@
 export const MESSAGES = {
   SONGS: {
     ERRORS: {
-      GET_ALL_FAILED: '楽曲の取得に失敗しました',
+      GET_FAILED: '楽曲の取得に失敗しました',
       GET_ONE_FAILED: '楽曲の取得に失敗しました',
       CREATE_FAILED: '楽曲の作成に失敗しました',
       UPDATE_FAILED: '楽曲の更新に失敗しました',

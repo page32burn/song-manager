@@ -18,7 +18,7 @@ export class SongsController {
 
   @Get()
   get(): Promise<Song[]> {
-    return this.SongsService.getAll();
+    return this.SongsService.get();
   }
 
   @Get(':id')

@@ -15,13 +15,13 @@ import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 export class SongsService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async getAll(): Promise<Song[]> {
+  async get(): Promise<Song[]> {
     try {
       return await this.prisma.song.findMany({
         include: SONGS_CONSTANTS.INCLUDE.TAGS,
       });
     } catch {
-      throw new BadRequestException(MESSAGES.SONGS.ERRORS.GET_ALL_FAILED);
+      throw new BadRequestException(MESSAGES.SONGS.ERRORS.GET_FAILED);
     }
   }
 
