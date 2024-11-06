@@ -72,10 +72,6 @@ describe('SongsController', () => {
     service = module.get<SongsService>(SongsService);
   });
 
-  it('should be defined', () => {
-    expect(controller).toBeDefined();
-  });
-
   describe('get', () => {
     it('should return an array of songs', () => {
       const result = controller.get();

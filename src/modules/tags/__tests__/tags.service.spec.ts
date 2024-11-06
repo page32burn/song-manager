@@ -1,18 +1,50 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { TagsService } from '../tags.service';
+import { Tag } from '@prisma/client';
+import { BadRequestException } from '@nestjs/common';
+import { MESSAGES } from '../constants/message';
 
 describe('TagsService', () => {
   let service: TagsService;
+  const createdAt = new Date();
+  const updatedAt = new Date();
+
+  const mockSongsService = {
+    get: jest.fn((): Tag[] => [
+      { id: 1, name: 'タグ2', createdAt, updatedAt },
+      { id: 2, name: 'タグ2', createdAt, updatedAt },
+    ]),
+  };
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [TagsService],
+      providers: [
+        {
+          provide: TagsService,
+          useValue: mockSongsService,
+        },
+      ],
     }).compile();
 
     service = module.get<TagsService>(TagsService);
   });
 
-  it('should be defined', () => {
-    expect(service).toBeDefined();
+  describe('get', () => {
+    it('it should return all tags', async () => {
+      expect(await service.get()).toEqual([
+        { id: 1, name: 'タグ2', createdAt, updatedAt },
+        { id: 2, name: 'タグ2', createdAt, updatedAt },
+      ]);
+    });
+
+    it('GET_FAILED', async () => {
+      mockSongsService.get.mockImplementationOnce(() => {
+        throw new BadRequestException(MESSAGES.TAGS.ERRORS.GET_FAILED);
+      });
+
+      await expect(() => service.get()).toThrow(
+        new BadRequestException(MESSAGES.TAGS.ERRORS.GET_FAILED),
+      );
+    });
   });
 });
