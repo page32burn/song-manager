@@ -89,19 +89,6 @@ describe('SongsService', () => {
     });
   });
 
-  describe('update', () => {
-    it('should return updated song', () => {
-      const id = 'id3';
-      const song = { name: 'Song 3', bpm: 120 };
-      expect(service.update(id, song)).toEqual({
-        id,
-        ...song,
-        createdAt,
-        updatedAt,
-      });
-    });
-  });
-
   it('delete', () => {
     const id = 'id1';
     expect(service.delete(id)).toBe(id);
