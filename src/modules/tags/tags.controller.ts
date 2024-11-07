@@ -1,7 +1,16 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  ParseIntPipe,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { TagsService } from './tags.service';
 import { Tag } from '@prisma/client';
 import { CreateTagDto } from './dto/create-tag-dto';
+import { UpdateTagDto } from './dto/update-tag-dto';
 
 @Controller('tags')
 export class TagsController {
@@ -15,5 +24,10 @@ export class TagsController {
   @Post()
   create(@Body() tag: CreateTagDto): Promise<Tag> {
     return this.TagsService.create(tag);
+  }
+
+  @Put(':id')
+  update(@Param('id', ParseIntPipe) id: number, @Body() tag: UpdateTagDto) {
+    return this.TagsService.update(id, tag);
   }
 }

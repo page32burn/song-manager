@@ -5,6 +5,7 @@ import { MESSAGES } from './constants/message';
 import { CreateTagDto } from './dto/create-tag-dto';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 import { TAGS_CONSTANTS } from './constants/tags_contant';
+import { UpdateTagDto } from './dto/update-tag-dto';
 
 @Injectable()
 export class TagsService {
@@ -29,6 +30,26 @@ export class TagsService {
         throw new BadRequestException(MESSAGES.TAGS.ERRORS.DUPLICATE_NAME);
       }
       throw new BadRequestException(MESSAGES.TAGS.ERRORS.CREATE_FAILED);
+    }
+  }
+
+  async update(id: number, tag: UpdateTagDto): Promise<Tag> {
+    try {
+      const existingTag = await this.prisma.tag.findUnique({ where: { id } });
+      if (!existingTag)
+        throw new BadRequestException(MESSAGES.TAGS.ERRORS.NOT_FOUND(id));
+      return await this.prisma.tag.update({
+        where: { id },
+        data: { name: tag.name },
+      });
+    } catch (error) {
+      if (
+        error instanceof PrismaClientKnownRequestError &&
+        error.code === TAGS_CONSTANTS.PRISMA_ERROR_CODES.UNIQUE_CONSTRAINT
+      ) {
+        throw new BadRequestException(MESSAGES.TAGS.ERRORS.DUPLICATE_NAME);
+      }
+      throw new BadRequestException(MESSAGES.TAGS.ERRORS.UPDATE_FAILED);
     }
   }
 }

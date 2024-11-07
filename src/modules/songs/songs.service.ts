@@ -75,11 +75,8 @@ export class SongsService {
         where: { id },
         include: SONGS_CONSTANTS.INCLUDE.TAGS,
       });
-
-      if (!existingSong) {
+      if (!existingSong)
         throw new NotFoundException(MESSAGES.SONGS.ERRORS.NOT_FOUND(id));
-      }
-
       return await this.prisma.song.update({
         where: { id },
         data: {

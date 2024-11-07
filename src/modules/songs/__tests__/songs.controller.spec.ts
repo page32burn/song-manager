@@ -111,7 +111,7 @@ describe('SongsController', () => {
   describe('update', () => {
     it('should update a song by id', () => {
       const id = 'id1';
-      const song: UpdateSongDto = { name: 'Song 1 updated' };
+      const song: UpdateSongDto = { name: 'Song 1 updated', bpm: 200 };
       const result = controller.update(id, song);
       expect(service.update).toHaveBeenCalledWith(id, song);
       expect(result).toEqual({ id, ...song, createdAt, updatedAt });

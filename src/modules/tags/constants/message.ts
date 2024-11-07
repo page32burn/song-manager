@@ -6,7 +6,7 @@ export const MESSAGES = {
       CREATE_FAILED: 'タグの作成に失敗しました',
       UPDATE_FAILED: 'タグの更新に失敗しました',
       DELETE_FAILED: 'タグの削除に失敗しました',
-      NOT_FOUND: (id: string) => `ID: ${id} のタグが見つかりません`,
+      NOT_FOUND: (id: number) => `ID: ${id} のタグが見つかりません`,
       DUPLICATE_NAME: '同じ名前のタグが既に存在します',
       TAG_NOT_FOUND: '指定されたタグが存在しません',
     },
