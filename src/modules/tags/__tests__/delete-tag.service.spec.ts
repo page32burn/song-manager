@@ -1,10 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { SongsService } from '../songs.service';
-import { BadRequestException, NotFoundException } from '@nestjs/common';
 import { MESSAGES } from '../constants/message';
+import { BadRequestException, NotFoundException } from '@nestjs/common';
+import { TagsService } from '../tags.service';
 
-describe('SongsService', () => {
-  let service: SongsService;
+describe('TagsService', () => {
+  let service: TagsService;
 
   const mockSongsService = {
     delete: jest.fn((id: number) => id),
@@ -14,17 +14,18 @@ describe('SongsService', () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         {
-          provide: SongsService,
+          provide: TagsService,
           useValue: mockSongsService,
         },
       ],
     }).compile();
 
-    service = module.get<SongsService>(SongsService);
+    service = module.get<TagsService>(TagsService);
   });
 
   describe('delete', () => {
-    const id = 'id1';
+    const id = 1;
+
     it('success', async () => {
       await expect(service.delete(id)).toBe(id);
       expect(mockSongsService.delete).toHaveBeenCalledWith(id);
@@ -32,22 +33,22 @@ describe('SongsService', () => {
 
     it('NOT_FOUND', async () => {
       mockSongsService.delete.mockImplementationOnce(() => {
-        throw new NotFoundException(MESSAGES.SONGS.ERRORS.NOT_FOUND(id));
+        throw new NotFoundException(MESSAGES.TAGS.ERRORS.NOT_FOUND(id));
       });
 
       await expect(() => service.delete(id)).toThrow(
-        new NotFoundException(MESSAGES.SONGS.ERRORS.NOT_FOUND(id)),
+        new NotFoundException(MESSAGES.TAGS.ERRORS.NOT_FOUND(id)),
       );
       expect(mockSongsService.delete).toHaveBeenCalledWith(id);
     });
 
     it('DELETE_FAILED', async () => {
       mockSongsService.delete.mockImplementationOnce(() => {
-        throw new BadRequestException(MESSAGES.SONGS.ERRORS.DELETE_FAILED);
+        throw new BadRequestException(MESSAGES.TAGS.ERRORS.DELETE_FAILED);
       });
 
       await expect(() => service.delete(id)).toThrow(
-        new BadRequestException(MESSAGES.SONGS.ERRORS.DELETE_FAILED),
+        new BadRequestException(MESSAGES.TAGS.ERRORS.DELETE_FAILED),
       );
       expect(mockSongsService.delete).toHaveBeenCalledWith(id);
     });

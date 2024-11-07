@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   ParseIntPipe,
@@ -29,5 +30,10 @@ export class TagsController {
   @Put(':id')
   update(@Param('id', ParseIntPipe) id: number, @Body() tag: UpdateTagDto) {
     return this.TagsService.update(id, tag);
+  }
+
+  @Delete(':id')
+  delete(@Param('id', ParseIntPipe) id: number) {
+    return this.TagsService.delete(id);
   }
 }
