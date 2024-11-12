@@ -13,7 +13,6 @@ export class AuthController {
   }
 
   @Post('login')
-  @HttpCode(HttpStatus.OK)
   async signIn(
     @Body() credentialsDto: CredentialsDto,
   ): Promise<{ token: string }> {

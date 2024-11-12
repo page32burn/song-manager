@@ -6,7 +6,9 @@ import {
   IsOptional,
   IsString,
   IsStrongPassword,
+  Max,
   MaxLength,
+  Min,
 } from 'class-validator';
 
 export class CreateUserDto {
@@ -33,6 +35,7 @@ export class CreateUserDto {
 
   @IsOptional()
   @IsInt()
-  @MaxLength(100000)
+  @Min(0)
+  @Max(10000)
   cwfUserId: number;
 }
