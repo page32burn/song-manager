@@ -27,3 +27,16 @@ model Tag {
 
   @@map("tags")
 }
+
+model User {
+  id        Int      @id @default(autoincrement())
+  name      String   @db.VarChar(20)
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  isCwfUser Boolean
+  cwfUserId Int?
+
+  @@map("users")
+}

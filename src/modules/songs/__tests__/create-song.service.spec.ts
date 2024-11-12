@@ -52,7 +52,7 @@ describe('SongsService', () => {
 
     it('DUPLICATE_NAME', async () => {
       mockSongsService.create.mockImplementationOnce(() => {
-        throw new Error(MESSAGES.SONGS.ERRORS.DUPLICATE_NAME);
+        throw new BadRequestException(MESSAGES.SONGS.ERRORS.DUPLICATE_NAME);
       });
 
       await expect(() => service.create(createSongDto)).toThrow(
@@ -72,7 +72,7 @@ describe('SongsService', () => {
       expect(mockSongsService.create).toHaveBeenCalledWith(createSongDto);
     });
 
-    it('UPDATE_FAILED', async () => {
+    it('CREATE_FAILED', async () => {
       mockSongsService.create.mockImplementationOnce(() => {
         throw new Error(MESSAGES.SONGS.ERRORS.UPDATE_FAILED);
       });
