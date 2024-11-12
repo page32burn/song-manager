@@ -52,11 +52,11 @@ describe('AuthService', () => {
 
     it('DUPLICATE_EMAIL', async () => {
       mockUserService.register.mockImplementationOnce(() => {
-        throw new ConflictException(MESSAGES.USERS.ERRORS.DUPLICATE_EMAIL);
+        throw new ConflictException(MESSAGES.AUTH.ERRORS.DUPLICATE_EMAIL);
       });
 
       await expect(() => service.register(createUserDto)).toThrow(
-        new ConflictException(MESSAGES.USERS.ERRORS.DUPLICATE_EMAIL),
+        new ConflictException(MESSAGES.AUTH.ERRORS.DUPLICATE_EMAIL),
       );
 
       expect(mockUserService.register).toHaveBeenCalledWith(createUserDto);
@@ -65,12 +65,12 @@ describe('AuthService', () => {
     it('CREATE_FAILED', async () => {
       mockUserService.register.mockImplementationOnce(() => {
         throw new InternalServerErrorException(
-          MESSAGES.USERS.ERRORS.CREATE_FAILED,
+          MESSAGES.AUTH.ERRORS.CREATE_FAILED,
         );
       });
 
       await expect(() => service.register(createUserDto)).toThrow(
-        new InternalServerErrorException(MESSAGES.USERS.ERRORS.CREATE_FAILED),
+        new InternalServerErrorException(MESSAGES.AUTH.ERRORS.CREATE_FAILED),
       );
 
       expect(mockUserService.register).toHaveBeenCalledWith(createUserDto);
