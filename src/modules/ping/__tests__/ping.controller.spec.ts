@@ -15,4 +15,8 @@ describe('PingController', () => {
   it('should be defined', () => {
     expect(controller).toBeDefined();
   });
+
+  it('should return "ping"', () => {
+    expect(controller.ping()).toBe('ping');
+  });
 });
