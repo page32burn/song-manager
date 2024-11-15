@@ -13,7 +13,7 @@ import { CreateSongDto } from './dto/create-song-dto';
 import { UpdateSongDto } from './dto/update-song-dto';
 import { SongDto } from './dto/get-songs-dto';
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { ErrorResponseDto } from './dto/not-found-error-dto';
+import { NotFoundErrorDto } from './dto/not-found-error-dto';
 import { SWAGGER_CONSTANTS } from './constants/swagger_constant';
 
 @ApiTags('songs')
@@ -40,7 +40,7 @@ export class SongsController {
   })
   @ApiResponse({
     status: 404,
-    type: ErrorResponseDto,
+    type: NotFoundErrorDto,
   })
   show(@Param('id') id: string): Promise<Song> {
     return this.SongsService.show(id);
@@ -52,10 +52,6 @@ export class SongsController {
   @ApiResponse({
     status: 200,
     type: SongDto,
-  })
-  @ApiResponse({
-    status: 404,
-    type: ErrorResponseDto,
   })
   create(@Body() song: CreateSongDto): Promise<Song> {
     return this.SongsService.create(song);

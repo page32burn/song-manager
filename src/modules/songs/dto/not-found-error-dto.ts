@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { MESSAGES } from '../constants/message';
 
-export class ErrorResponseDto {
+export class NotFoundErrorDto {
   @ApiProperty({ example: 404, description: 'HTTPステータスコード' })
   statusCode: number;
 
