@@ -31,6 +31,11 @@ export class SongsController {
   }
 
   @Get(':id')
+  @ApiOperation({ summary: '楽曲詳細取得' })
+  @ApiResponse({
+    status: 200,
+    type: SongDto,
+  })
   show(@Param('id') id: string): Promise<Song> {
     return this.SongsService.show(id);
   }
