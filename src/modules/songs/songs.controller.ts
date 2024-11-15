@@ -12,7 +12,7 @@ import { Song } from '@prisma/client';
 import { CreateSongDto } from './dto/create-song-dto';
 import { UpdateSongDto } from './dto/update-song-dto';
 import { SongDto } from './dto/get-songs-dto';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ErrorResponseDto } from './dto/not-found-error-dto';
 import { SWAGGER_CONSTANTS } from './constants/swagger_constant';
 
@@ -48,6 +48,15 @@ export class SongsController {
 
   @Post()
   @ApiOperation({ summary: SWAGGER_CONSTANTS.SONGS.OPERATIONS.CREATE })
+  @ApiBody({ type: CreateSongDto })
+  @ApiResponse({
+    status: 200,
+    type: SongDto,
+  })
+  @ApiResponse({
+    status: 404,
+    type: ErrorResponseDto,
+  })
   create(@Body() song: CreateSongDto): Promise<Song> {
     return this.SongsService.create(song);
   }
