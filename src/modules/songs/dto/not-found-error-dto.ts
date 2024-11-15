@@ -6,7 +6,7 @@ export class NotFoundErrorDto {
   statusCode: number;
 
   @ApiProperty({ example: 'Bad Request', description: 'エラーの種類' })
-  errpr: string;
+  error: string;
 
   @ApiProperty({
     example: MESSAGES.SONGS.ERRORS.GET_ONE_FAILED,

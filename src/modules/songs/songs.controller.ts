@@ -59,12 +59,21 @@ export class SongsController {
 
   @Put(':id')
   @ApiOperation({ summary: SWAGGER_CONSTANTS.SONGS.OPERATIONS.UPDATE })
+  @ApiBody({ type: UpdateSongDto })
+  @ApiResponse({
+    status: 404,
+    type: NotFoundErrorDto,
+  })
   update(@Param('id') id: string, @Body() song: UpdateSongDto) {
     return this.SongsService.update(id, song);
   }
 
   @Delete(':id')
   @ApiOperation({ summary: SWAGGER_CONSTANTS.SONGS.OPERATIONS.DELETE })
+  @ApiResponse({
+    status: 404,
+    type: NotFoundErrorDto,
+  })
   delete(@Param('id') id: string) {
     return this.SongsService.delete(id);
   }
