@@ -11,12 +11,21 @@ import { SongsService } from './songs.service';
 import { Song } from '@prisma/client';
 import { CreateSongDto } from './dto/create-song-dto';
 import { UpdateSongDto } from './dto/update-song-dto';
+import { SongDto } from './dto/get-songs-dto';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('songs')
 @Controller('songs')
 export class SongsController {
   constructor(private readonly SongsService: SongsService) {}
 
   @Get()
+  @ApiOperation({ summary: '楽曲一覧取得' })
+  @ApiResponse({
+    status: 200,
+    type: SongDto,
+    isArray: true,
+  })
   get(): Promise<Song[]> {
     return this.SongsService.get();
   }
