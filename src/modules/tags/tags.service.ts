@@ -4,7 +4,7 @@ import { PrismaService } from '../../prisma/prisma.service';
 import { MESSAGES } from './constants/message';
 import { CreateTagDto } from './dto/create-tag-dto';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
-import { TAGS_CONSTANTS } from './constants/tags_contant';
+import { TAGS_CONSTANTS } from './constants/tags_constant';
 import { UpdateTagDto } from './dto/update-tag-dto';
 
 @Injectable()
