@@ -1,9 +1,11 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { SongsService } from '../songs.service';
-import { UpdateSongDto } from '../dto/update-song-dto';
-import { Song } from '@prisma/client';
-import { MESSAGES } from '../constants/message';
 import { BadRequestException, NotFoundException } from '@nestjs/common';
+import { Test, TestingModule } from '@nestjs/testing';
+
+import { Song } from '@prisma/client';
+
+import { MESSAGES } from '../constants/message';
+import { UpdateSongDto } from '../dto/update-song-dto';
+import { SongsService } from '../songs.service';
 
 describe('SongsService', () => {
   let service: SongsService;

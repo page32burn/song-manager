@@ -1,9 +1,11 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { Tag } from '@prisma/client';
-import { MESSAGES } from '../constants/message';
 import { BadRequestException } from '@nestjs/common';
-import { TagsService } from '../tags.service';
+import { Test, TestingModule } from '@nestjs/testing';
+
+import { Tag } from '@prisma/client';
+
+import { MESSAGES } from '../constants/message';
 import { CreateTagDto } from '../dto/create-tag-dto';
+import { TagsService } from '../tags.service';
 
 describe('SongsService', () => {
   let service: TagsService;

@@ -1,11 +1,12 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { AuthService } from '../auth.service';
-import { CreateUserDto } from '../dto/create-user-dto';
 import {
   ConflictException,
   InternalServerErrorException,
 } from '@nestjs/common';
+import { Test, TestingModule } from '@nestjs/testing';
+
+import { AuthService } from '../auth.service';
 import { MESSAGES } from '../constants/message';
+import { CreateUserDto } from '../dto/create-user-dto';
 
 describe('AuthService', () => {
   let service: AuthService;

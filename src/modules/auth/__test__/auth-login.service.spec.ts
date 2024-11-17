@@ -1,7 +1,7 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { AuthService } from '../auth.service';
-
 import { UnauthorizedException } from '@nestjs/common';
+import { Test, TestingModule } from '@nestjs/testing';
+
+import { AuthService } from '../auth.service';
 import { MESSAGES } from '../constants/message';
 import { CredentialsDto } from '../dto/credentials-dto';
 

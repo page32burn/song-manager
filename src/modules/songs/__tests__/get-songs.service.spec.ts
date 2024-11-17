@@ -1,8 +1,10 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { SongsService } from '../songs.service';
-import { Song } from '@prisma/client';
-import { MESSAGES } from '../constants/message';
 import { BadRequestException } from '@nestjs/common';
+import { Test, TestingModule } from '@nestjs/testing';
+
+import { Song } from '@prisma/client';
+
+import { MESSAGES } from '../constants/message';
+import { SongsService } from '../songs.service';
 
 describe('SongsService', () => {
   let service: SongsService;

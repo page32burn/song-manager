@@ -7,14 +7,16 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
-import { SongsService } from './songs.service';
-import { Song } from '@prisma/client';
-import { CreateSongDto } from './dto/create-song-dto';
-import { UpdateSongDto } from './dto/update-song-dto';
-import { SongDto } from './dto/song-dto';
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { NotFoundErrorDto } from './dto/not-found-error-dto';
+
+import { Song } from '@prisma/client';
+
 import { SWAGGER_CONSTANTS } from './constants/swagger_constant';
+import { CreateSongDto } from './dto/create-song-dto';
+import { NotFoundErrorDto } from './dto/not-found-error-dto';
+import { SongDto } from './dto/song-dto';
+import { UpdateSongDto } from './dto/update-song-dto';
+import { SongsService } from './songs.service';
 
 @ApiTags('songs')
 @Controller('songs')

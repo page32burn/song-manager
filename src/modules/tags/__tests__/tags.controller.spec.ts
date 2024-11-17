@@ -1,9 +1,11 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { TagsController } from '../tags.controller';
-import { TagsService } from '../tags.service';
+
 import { Tag } from '@prisma/client';
+
 import { CreateTagDto } from '../dto/create-tag-dto';
 import { UpdateTagDto } from '../dto/update-tag-dto';
+import { TagsController } from '../tags.controller';
+import { TagsService } from '../tags.service';
 
 describe('TagsController', () => {
   let controller: TagsController;

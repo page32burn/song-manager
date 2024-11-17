@@ -1,11 +1,13 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
+
 import { Tag } from '@prisma/client';
-import { PrismaService } from '../../prisma/prisma.service';
-import { MESSAGES } from './constants/message';
-import { CreateTagDto } from './dto/create-tag-dto';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
+
+import { MESSAGES } from './constants/message';
 import { TAGS_CONSTANTS } from './constants/tags_constant';
+import { CreateTagDto } from './dto/create-tag-dto';
 import { UpdateTagDto } from './dto/update-tag-dto';
+import { PrismaService } from '../../prisma/prisma.service';
 
 @Injectable()
 export class TagsService {

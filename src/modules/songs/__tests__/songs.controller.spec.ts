@@ -1,9 +1,11 @@
 import { Test, TestingModule } from '@nestjs/testing';
+
+import { Song } from '@prisma/client';
+
+import { CreateSongDto } from '../dto/create-song-dto';
+import { UpdateSongDto } from '../dto/update-song-dto';
 import { SongsController } from '../songs.controller';
 import { SongsService } from '../songs.service';
-import { UpdateSongDto } from '../dto/update-song-dto';
-import { CreateSongDto } from '../dto/create-song-dto';
-import { Song } from '@prisma/client';
 
 describe('SongsController', () => {
   let controller: SongsController;

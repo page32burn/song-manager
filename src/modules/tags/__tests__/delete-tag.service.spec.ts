@@ -1,6 +1,7 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { MESSAGES } from '../constants/message';
 import { BadRequestException, NotFoundException } from '@nestjs/common';
+import { Test, TestingModule } from '@nestjs/testing';
+
+import { MESSAGES } from '../constants/message';
 import { TagsService } from '../tags.service';
 
 describe('TagsService', () => {

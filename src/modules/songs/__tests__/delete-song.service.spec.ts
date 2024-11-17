@@ -1,7 +1,8 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { SongsService } from '../songs.service';
 import { BadRequestException, NotFoundException } from '@nestjs/common';
+import { Test, TestingModule } from '@nestjs/testing';
+
 import { MESSAGES } from '../constants/message';
+import { SongsService } from '../songs.service';
 
 describe('SongsService', () => {
   let service: SongsService;

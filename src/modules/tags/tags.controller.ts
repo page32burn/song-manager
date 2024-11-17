@@ -8,10 +8,12 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
-import { TagsService } from './tags.service';
+
 import { Tag } from '@prisma/client';
+
 import { CreateTagDto } from './dto/create-tag-dto';
 import { UpdateTagDto } from './dto/update-tag-dto';
+import { TagsService } from './tags.service';
 
 @Controller('tags')
 export class TagsController {

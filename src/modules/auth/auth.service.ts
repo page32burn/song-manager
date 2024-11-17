@@ -1,17 +1,19 @@
-import { PrismaService } from '../../prisma/prisma.service';
-import * as bcrypt from 'bcrypt';
-import { CreateUserDto } from './dto/create-user-dto';
 import {
   ConflictException,
   Injectable,
   InternalServerErrorException,
   UnauthorizedException,
 } from '@nestjs/common';
-import { User } from '@prisma/client';
-import { MESSAGES } from './constants/message';
-import { CredentialsDto } from './dto/credentials-dto';
-import { JwtPayload } from '../../types/jwtPayload';
 import { JwtService } from '@nestjs/jwt';
+
+import { User } from '@prisma/client';
+import * as bcrypt from 'bcrypt';
+
+import { MESSAGES } from './constants/message';
+import { CreateUserDto } from './dto/create-user-dto';
+import { CredentialsDto } from './dto/credentials-dto';
+import { PrismaService } from '../../prisma/prisma.service';
+import { JwtPayload } from '../../types/jwtPayload';
 
 @Injectable()
 export class AuthService {

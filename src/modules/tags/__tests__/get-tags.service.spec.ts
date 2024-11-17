@@ -1,8 +1,10 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { TagsService } from '../tags.service';
-import { Tag } from '@prisma/client';
 import { BadRequestException } from '@nestjs/common';
+import { Test, TestingModule } from '@nestjs/testing';
+
+import { Tag } from '@prisma/client';
+
 import { MESSAGES } from '../constants/message';
+import { TagsService } from '../tags.service';
 
 describe('TagsService', () => {
   let service: TagsService;

@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+
 import { MESSAGES } from '../constants/message';
 
 export class NotFoundErrorDto {
