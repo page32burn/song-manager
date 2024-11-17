@@ -8,10 +8,13 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
+import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 
 import { Tag } from '@prisma/client';
 
+import { SWAGGER_CONSTANTS } from './constants/swagger_constant';
 import { CreateTagDto } from './dto/create-tag-dto';
+import { TagDto } from './dto/tag-dto';
 import { UpdateTagDto } from './dto/update-tag-dto';
 import { TagsService } from './tags.service';
 
@@ -20,6 +23,12 @@ export class TagsController {
   constructor(private readonly TagsService: TagsService) {}
 
   @Get()
+  @ApiOperation({ summary: SWAGGER_CONSTANTS.TAGS.OPERATIONS.GET_ALL })
+  @ApiResponse({
+    status: 200,
+    type: TagDto,
+    isArray: true,
+  })
   get(): Promise<Tag[]> {
     return this.TagsService.get();
   }
