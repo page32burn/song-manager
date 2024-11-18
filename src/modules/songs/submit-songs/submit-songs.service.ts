@@ -1,4 +1,8 @@
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
-export class SubmitSongsService {}
+export class SubmitSongsService {
+  async submit(songIds: string[]): Promise<string[]> {
+    return songIds;
+  }
+}

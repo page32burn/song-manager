@@ -5,9 +5,22 @@ import { SubmitSongsService } from '../submit-songs.service';
 describe('SubmitSongsService', () => {
   let service: SubmitSongsService;
 
+  const mockSubmitSongsService = {
+    submit: jest.fn((songIds: string[]): { songIds: string[] } => {
+      return {
+        songIds: songIds,
+      };
+    }),
+  };
+
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [SubmitSongsService],
+      providers: [
+        {
+          provide: SubmitSongsService,
+          useValue: mockSubmitSongsService,
+        },
+      ],
     }).compile();
 
     service = module.get<SubmitSongsService>(SubmitSongsService);

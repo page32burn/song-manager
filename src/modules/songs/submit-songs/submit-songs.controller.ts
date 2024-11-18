@@ -1,4 +1,15 @@
-import { Controller } from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 
-@Controller('submit-songs')
-export class SubmitSongsController {}
+import { SubmitSongsService } from './submit-songs.service';
+
+@ApiTags('songs')
+@Controller('songs')
+export class SubmitSongsController {
+  constructor(private readonly SubmitSongsService: SubmitSongsService) {}
+
+  @Post('submit')
+  submit(@Body() songIds: string[]): Promise<string[]> {
+    return this.SubmitSongsService.submit(songIds);
+  }
+}
