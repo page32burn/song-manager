@@ -18,6 +18,7 @@ describe('SongsService', () => {
         id,
         name: song.name,
         bpm: song.bpm,
+        status: song.status,
         createdAt,
         updatedAt,
       }),

@@ -1,7 +1,7 @@
 import { BadRequestException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 
-import { Song } from '@prisma/client';
+import { Song, SongStatus } from '@prisma/client';
 
 import { MESSAGES } from '../constants/message';
 import { CreateSongDto } from '../dto/create-song-dto';
@@ -18,6 +18,7 @@ describe('SongsService', () => {
         id: 'id3',
         name: createSongDto.name,
         bpm: createSongDto.bpm,
+        status: createSongDto.status,
         createdAt,
         updatedAt,
       }),
@@ -40,13 +41,15 @@ describe('SongsService', () => {
   describe('create', () => {
     const name = 'Song 3';
     const bpm = 120;
-    const createSongDto = { name, bpm };
+    const status = SongStatus.STOCK;
+    const createSongDto = { name, bpm, status };
 
     it('should return created song', () => {
       expect(service.create(createSongDto)).toEqual({
         id: 'id3',
         name,
         bpm,
+        status,
         createdAt,
         updatedAt,
       });

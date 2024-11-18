@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 
-import { Song } from '@prisma/client';
+import { Song, SongStatus } from '@prisma/client';
 
 import { CreateSongDto } from '../dto/create-song-dto';
 import { UpdateSongDto } from '../dto/update-song-dto';
@@ -19,6 +19,7 @@ describe('SongsController', () => {
         id: 'id1',
         name: 'Song 1',
         bpm: 120,
+        status: SongStatus.KEEP,
         createdAt,
         updatedAt,
       },
@@ -26,6 +27,7 @@ describe('SongsController', () => {
         id: 'id2',
         name: 'Song 2',
         bpm: 120,
+        status: SongStatus.KEEP,
         createdAt,
         updatedAt,
       },
@@ -35,6 +37,7 @@ describe('SongsController', () => {
         id,
         name: 'Song 1',
         bpm: 120,
+        status: SongStatus.KEEP,
         createdAt,
         updatedAt,
       }),
@@ -52,6 +55,7 @@ describe('SongsController', () => {
         id,
         name: song.name,
         bpm: song.bpm,
+        status: song.status,
         createdAt,
         updatedAt,
       }),
@@ -78,8 +82,22 @@ describe('SongsController', () => {
     it('should return an array of songs', () => {
       const result = controller.get();
       expect(result).toEqual([
-        { id: 'id1', name: 'Song 1', bpm: 120, createdAt, updatedAt },
-        { id: 'id2', name: 'Song 2', bpm: 120, createdAt, updatedAt },
+        {
+          id: 'id1',
+          name: 'Song 1',
+          bpm: 120,
+          status: SongStatus.KEEP,
+          createdAt,
+          updatedAt,
+        },
+        {
+          id: 'id2',
+          name: 'Song 2',
+          bpm: 120,
+          status: SongStatus.KEEP,
+          createdAt,
+          updatedAt,
+        },
       ]);
       expect(service.get).toHaveBeenCalled();
     });
@@ -94,6 +112,7 @@ describe('SongsController', () => {
         id: id,
         name: 'Song 1',
         bpm: 120,
+        status: SongStatus.KEEP,
         createdAt,
         updatedAt,
       });
@@ -103,7 +122,11 @@ describe('SongsController', () => {
   describe('create', () => {
     it('should create a song', () => {
       const id = 'id3';
-      const song: CreateSongDto = { name: 'Song 3', bpm: 120 };
+      const song: CreateSongDto = {
+        name: 'Song 3',
+        bpm: 120,
+        status: SongStatus.KEEP,
+      };
       const result = controller.create(song);
       expect(service.create).toHaveBeenCalledWith(song);
       expect(result).toEqual({ id, ...song, createdAt, updatedAt });
@@ -113,7 +136,11 @@ describe('SongsController', () => {
   describe('update', () => {
     it('should update a song by id', () => {
       const id = 'id1';
-      const song: UpdateSongDto = { name: 'Song 1 updated', bpm: 200 };
+      const song: UpdateSongDto = {
+        name: 'Song 1 updated',
+        bpm: 200,
+        status: SongStatus.KEEP,
+      };
       const result = controller.update(id, song);
       expect(service.update).toHaveBeenCalledWith(id, song);
       expect(result).toEqual({ id, ...song, createdAt, updatedAt });

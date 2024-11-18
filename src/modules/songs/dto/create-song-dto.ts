@@ -1,7 +1,9 @@
 import { ApiProperty } from '@nestjs/swagger';
 
+import { SongStatus } from '@prisma/client';
 import {
   IsArray,
+  IsEnum,
   IsInt,
   IsNotEmpty,
   IsOptional,
@@ -15,6 +17,7 @@ export class CreateSongDto {
   @ApiProperty({
     example: 'Song Title',
     description: '楽曲のタイトル',
+    required: true,
   })
   @IsString()
   @MaxLength(255)
@@ -24,6 +27,7 @@ export class CreateSongDto {
   @ApiProperty({
     example: 200,
     description: 'BPM',
+    required: true,
   })
   @IsInt()
   @Min(20)
@@ -31,8 +35,19 @@ export class CreateSongDto {
   bpm: number;
 
   @ApiProperty({
+    example: 'STOCK',
+    description: 'ステータス',
+    enum: Object.values(SongStatus),
+    required: true,
+  })
+  @IsEnum(SongStatus)
+  @IsString()
+  status: SongStatus;
+
+  @ApiProperty({
     example: [1, 2],
     description: 'タグID',
+    required: false,
   })
   @IsOptional()
   @IsArray()

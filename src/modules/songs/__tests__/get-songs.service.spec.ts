@@ -1,7 +1,7 @@
 import { BadRequestException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 
-import { Song } from '@prisma/client';
+import { Song, SongStatus } from '@prisma/client';
 
 import { MESSAGES } from '../constants/message';
 import { SongsService } from '../songs.service';
@@ -13,8 +13,22 @@ describe('SongsService', () => {
 
   const mockSongsService = {
     get: jest.fn((): Song[] => [
-      { id: 'id1', name: 'Song 1', bpm: 120, createdAt, updatedAt },
-      { id: 'id2', name: 'Song 2', bpm: 120, createdAt, updatedAt },
+      {
+        id: 'id1',
+        name: 'Song 1',
+        bpm: 120,
+        status: SongStatus.KEEP,
+        createdAt,
+        updatedAt,
+      },
+      {
+        id: 'id2',
+        name: 'Song 2',
+        bpm: 120,
+        status: SongStatus.KEEP,
+        createdAt,
+        updatedAt,
+      },
     ]),
   };
 
@@ -34,8 +48,22 @@ describe('SongsService', () => {
   describe('get', () => {
     it('should return all songs', () => {
       expect(service.get()).toEqual([
-        { id: 'id1', name: 'Song 1', bpm: 120, createdAt, updatedAt },
-        { id: 'id2', name: 'Song 2', bpm: 120, createdAt, updatedAt },
+        {
+          id: 'id1',
+          name: 'Song 1',
+          bpm: 120,
+          status: SongStatus.KEEP,
+          createdAt,
+          updatedAt,
+        },
+        {
+          id: 'id2',
+          name: 'Song 2',
+          bpm: 120,
+          status: SongStatus.KEEP,
+          createdAt,
+          updatedAt,
+        },
       ]);
     });
 

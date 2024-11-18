@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-import { Song } from '@prisma/client';
+import { Song, SongStatus } from '@prisma/client';
 import { Type } from 'class-transformer';
 
 export class SongDto implements Partial<Song> {
@@ -15,6 +15,13 @@ export class SongDto implements Partial<Song> {
   @Type(() => String)
   @ApiProperty({ example: 'Song Title', description: '楽曲のタイトル' })
   name: string;
+
+  @Type(() => String)
+  @ApiProperty({
+    example: Object.values(SongStatus),
+    description: 'ステータス',
+  })
+  status: SongStatus;
 
   @Type(() => Array)
   @ApiProperty({

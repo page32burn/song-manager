@@ -7,12 +7,21 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum SongStatus {
+  SUBMITTED
+  STOCK
+  KEEP
+  PREPRODUCTION
+  RELEASED
+}
+
 model Song {
-  id        String   @id @default(uuid())
-  name      String   @db.VarChar(255)
-  bpm       Int      @db.UnsignedInt
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id        String     @id @default(uuid())
+  name      String     @db.VarChar(255)
+  bpm       Int        @db.UnsignedInt
+  status    SongStatus @default(STOCK)
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
   tags Tag[] @relation("SongTags")
 
   @@map("songs")

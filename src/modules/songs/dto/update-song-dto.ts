@@ -1,7 +1,9 @@
 import { ApiProperty } from '@nestjs/swagger';
 
+import { SongStatus } from '@prisma/client';
 import {
   IsArray,
+  IsEnum,
   IsInt,
   IsOptional,
   IsString,
@@ -27,6 +29,15 @@ export class UpdateSongDto {
   @Min(20)
   @Max(300)
   bpm?: number;
+
+  @ApiProperty({
+    example: 'STOCK',
+    description: 'ステータス',
+    enum: Object.values(SongStatus),
+  })
+  @IsEnum(SongStatus)
+  @IsOptional()
+  status?: SongStatus;
 
   @ApiProperty({
     example: [1, 2],

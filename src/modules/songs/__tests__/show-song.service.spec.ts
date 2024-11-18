@@ -1,7 +1,7 @@
 import { BadRequestException, NotFoundException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 
-import { Song } from '@prisma/client';
+import { Song, SongStatus } from '@prisma/client';
 
 import { MESSAGES } from '../constants/message';
 import { SongsService } from '../songs.service';
@@ -12,15 +12,12 @@ describe('SongsService', () => {
   const updatedAt = new Date();
 
   const mockSongsService = {
-    getAll: jest.fn((): Song[] => [
-      { id: 'id1', name: 'Song 1', bpm: 120, createdAt, updatedAt },
-      { id: 'id2', name: 'Song 2', bpm: 120, createdAt, updatedAt },
-    ]),
     show: jest.fn(
       (id: string): Song => ({
         id,
         name: 'Song 1',
         bpm: 120,
+        status: SongStatus.KEEP,
         createdAt,
         updatedAt,
       }),
@@ -47,6 +44,7 @@ describe('SongsService', () => {
         id: id,
         name: 'Song 1',
         bpm: 120,
+        status: SongStatus.KEEP,
         createdAt,
         updatedAt,
       });

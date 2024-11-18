@@ -60,6 +60,10 @@ docker exec -it <mysqlのコンテナID> sh
 mysql -u root -ppassword
 ```
 
+```bash
+use database
+```
+
 ## NestJS
 
 ```
