@@ -1,4 +1,5 @@
 ## セットアップ
+
 ```bash
 $ npm install
 ```
@@ -8,6 +9,7 @@ docker compose up -d --build
 ```
 
 envファイルを作成し、下記を追記
+
 ```
 DATABASE_URL="mysql://root:password@mysql_db:3306/database"
 ```
@@ -17,32 +19,39 @@ docker compose up
 ```
 
 ## prisma
+
 コンテナに入る
+
 ```bash
 docker exec -it <コンテナID> sh
 ```
 
 インストール
+
 ```bash
 npm install --save-dev prisma
 ```
 
 Prismaの初期化
+
 ```bash
 npx prisma init
 ```
 
 Prisma マイグレーションを実行
+
 ```bash
 npx prisma migrate dev --name <マイグレーション名>
 ```
 
 Prisma Clientの再生成
+
 ```
 npx prisma generate
 ```
 
 ## mysql
+
 ```bash
 docker exec -it <mysqlのコンテナID> sh
 ```
@@ -51,7 +60,22 @@ docker exec -it <mysqlのコンテナID> sh
 mysql -u root -ppassword
 ```
 
-# dockerを落とす時
+## NestJS
+
+```
+# モジュール作成
+nest g mo modules/
+
+
+# コントローラー作成
+nest g c modules/
+
+# サービス作成
+nest g s modules/
+```
+
+## dockerを落とす時
+
 ```bash
 docker-compose down
 docker volume prune
