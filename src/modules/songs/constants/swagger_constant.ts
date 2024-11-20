@@ -17,5 +17,9 @@ export const SWAGGER_CONSTANTS = {
       NOT_FOUND: '指定されたIDの楽曲が見つかりません',
       BAD_REQUEST: '無効なリクエストデータ',
     },
+    MESSAGES: {
+      INTERNAL_SERVER_ERROR: 'サーバーエラー',
+      NO_AUTHORIZATION: '認証情報がありません',
+    },
   },
 } as const;

@@ -30,6 +30,14 @@ export class SongsController {
     type: SongDto,
     isArray: true,
   })
+  @ApiResponse({
+    status: 401,
+    description: SWAGGER_CONSTANTS.SONGS.MESSAGES.NO_AUTHORIZATION,
+  })
+  @ApiResponse({
+    status: 500,
+    description: SWAGGER_CONSTANTS.SONGS.MESSAGES.INTERNAL_SERVER_ERROR,
+  })
   get(): Promise<Song[]> {
     return this.SongsService.get();
   }
@@ -41,8 +49,16 @@ export class SongsController {
     type: SongDto,
   })
   @ApiResponse({
+    status: 401,
+    description: SWAGGER_CONSTANTS.SONGS.MESSAGES.NO_AUTHORIZATION,
+  })
+  @ApiResponse({
     status: 404,
     type: NotFoundErrorDto,
+  })
+  @ApiResponse({
+    status: 500,
+    description: SWAGGER_CONSTANTS.SONGS.MESSAGES.INTERNAL_SERVER_ERROR,
   })
   show(@Param('id') id: string): Promise<Song> {
     return this.SongsService.show(id);
@@ -52,8 +68,16 @@ export class SongsController {
   @ApiOperation({ summary: SWAGGER_CONSTANTS.SONGS.OPERATIONS.CREATE })
   @ApiBody({ type: CreateSongDto })
   @ApiResponse({
+    status: 401,
+    description: SWAGGER_CONSTANTS.SONGS.MESSAGES.NO_AUTHORIZATION,
+  })
+  @ApiResponse({
     status: 200,
     type: SongDto,
+  })
+  @ApiResponse({
+    status: 500,
+    description: SWAGGER_CONSTANTS.SONGS.MESSAGES.INTERNAL_SERVER_ERROR,
   })
   create(@Body() song: CreateSongDto): Promise<Song> {
     return this.SongsService.create(song);
@@ -67,8 +91,16 @@ export class SongsController {
     type: SongDto,
   })
   @ApiResponse({
+    status: 401,
+    description: SWAGGER_CONSTANTS.SONGS.MESSAGES.NO_AUTHORIZATION,
+  })
+  @ApiResponse({
     status: 404,
     type: NotFoundErrorDto,
+  })
+  @ApiResponse({
+    status: 500,
+    description: SWAGGER_CONSTANTS.SONGS.MESSAGES.INTERNAL_SERVER_ERROR,
   })
   update(@Param('id') id: string, @Body() song: UpdateSongDto): Promise<Song> {
     return this.SongsService.update(id, song);
@@ -81,8 +113,16 @@ export class SongsController {
     type: SongDto,
   })
   @ApiResponse({
+    status: 401,
+    description: SWAGGER_CONSTANTS.SONGS.MESSAGES.NO_AUTHORIZATION,
+  })
+  @ApiResponse({
     status: 404,
     type: NotFoundErrorDto,
+  })
+  @ApiResponse({
+    status: 500,
+    description: SWAGGER_CONSTANTS.SONGS.MESSAGES.INTERNAL_SERVER_ERROR,
   })
   delete(@Param('id') id: string): Promise<Song> {
     return this.SongsService.delete(id);
