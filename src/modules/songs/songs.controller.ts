@@ -34,23 +34,11 @@ export class SongsController {
   }
 
   @Get(':id')
-  @ApiOperation({ summary: SWAGGER_CONSTANTS.SONGS.OPERATIONS.GET_ONE })
-  @ApiResponse({
-    status: 200,
-    type: SongDto,
-  })
-  @ApiResponse({
-    status: 401,
-    description: SWAGGER_CONSTANTS.SONGS.MESSAGES.NO_AUTHORIZATION,
-  })
-  @ApiResponse({
-    status: 404,
-    type: NotFoundErrorDto,
-  })
-  @ApiResponse({
-    status: 500,
-    description: SWAGGER_CONSTANTS.SONGS.MESSAGES.INTERNAL_SERVER_ERROR,
-  })
+  @ApiOperation(SWAGGER.show.operation)
+  @ApiResponse(SWAGGER.show.responses.success)
+  @ApiResponse(SWAGGER.show.responses.unauthorized)
+  @ApiResponse(SWAGGER.show.responses.notFound)
+  @ApiResponse(SWAGGER.show.responses.serverError)
   show(@Param('id') id: string): Promise<Song> {
     return this.SongsService.show(id);
   }

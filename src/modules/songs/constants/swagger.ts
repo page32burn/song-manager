@@ -1,4 +1,5 @@
 import { SWAGGER_CONSTANTS } from './swagger_constant';
+import { NotFoundErrorDto } from '../dto/not-found-error-dto';
 import { SongDto } from '../dto/song-dto';
 
 export const SWAGGER = {
@@ -15,6 +16,29 @@ export const SWAGGER = {
       unauthorized: {
         status: 401,
         description: SWAGGER_CONSTANTS.SONGS.MESSAGES.NO_AUTHORIZATION,
+      },
+      serverError: {
+        status: 500,
+        description: SWAGGER_CONSTANTS.SONGS.MESSAGES.INTERNAL_SERVER_ERROR,
+      },
+    },
+  },
+  show: {
+    operation: {
+      summary: SWAGGER_CONSTANTS.SONGS.OPERATIONS.GET_ONE,
+    },
+    responses: {
+      success: {
+        status: 200,
+        type: SongDto,
+      },
+      unauthorized: {
+        status: 401,
+        description: SWAGGER_CONSTANTS.SONGS.MESSAGES.NO_AUTHORIZATION,
+      },
+      notFound: {
+        status: 404,
+        type: NotFoundErrorDto,
       },
       serverError: {
         status: 500,
