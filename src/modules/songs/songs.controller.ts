@@ -11,6 +11,7 @@ import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 import { Song } from '@prisma/client';
 
+import { SWAGGER } from './constants/swagger';
 import { SWAGGER_CONSTANTS } from './constants/swagger_constant';
 import { CreateSongDto } from './dto/create-song-dto';
 import { NotFoundErrorDto } from './dto/not-found-error-dto';
@@ -24,20 +25,10 @@ export class SongsController {
   constructor(private readonly SongsService: SongsService) {}
 
   @Get()
-  @ApiOperation({ summary: SWAGGER_CONSTANTS.SONGS.OPERATIONS.GET_ALL })
-  @ApiResponse({
-    status: 200,
-    type: SongDto,
-    isArray: true,
-  })
-  @ApiResponse({
-    status: 401,
-    description: SWAGGER_CONSTANTS.SONGS.MESSAGES.NO_AUTHORIZATION,
-  })
-  @ApiResponse({
-    status: 500,
-    description: SWAGGER_CONSTANTS.SONGS.MESSAGES.INTERNAL_SERVER_ERROR,
-  })
+  @ApiOperation(SWAGGER.get.operation)
+  @ApiResponse(SWAGGER.get.responses.success)
+  @ApiResponse(SWAGGER.get.responses.unauthorized)
+  @ApiResponse(SWAGGER.get.responses.serverError)
   get(): Promise<Song[]> {
     return this.SongsService.get();
   }
