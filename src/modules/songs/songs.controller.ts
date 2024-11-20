@@ -12,10 +12,7 @@ import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Song } from '@prisma/client';
 
 import { SWAGGER } from './constants/swagger';
-import { SWAGGER_CONSTANTS } from './constants/swagger_constant';
 import { CreateSongDto } from './dto/create-song-dto';
-import { NotFoundErrorDto } from './dto/not-found-error-dto';
-import { SongDto } from './dto/song-dto';
 import { UpdateSongDto } from './dto/update-song-dto';
 import { SongsService } from './songs.service';
 
@@ -44,65 +41,32 @@ export class SongsController {
   }
 
   @Post()
-  @ApiOperation({ summary: SWAGGER_CONSTANTS.SONGS.OPERATIONS.CREATE })
+  @ApiOperation(SWAGGER.create.operation)
   @ApiBody({ type: CreateSongDto })
-  @ApiResponse({
-    status: 401,
-    description: SWAGGER_CONSTANTS.SONGS.MESSAGES.NO_AUTHORIZATION,
-  })
-  @ApiResponse({
-    status: 200,
-    type: SongDto,
-  })
-  @ApiResponse({
-    status: 500,
-    description: SWAGGER_CONSTANTS.SONGS.MESSAGES.INTERNAL_SERVER_ERROR,
-  })
+  @ApiResponse(SWAGGER.create.responses.success)
+  @ApiResponse(SWAGGER.create.responses.unauthorized)
+  @ApiResponse(SWAGGER.create.responses.serverError)
   create(@Body() song: CreateSongDto): Promise<Song> {
     return this.SongsService.create(song);
   }
 
   @Put(':id')
-  @ApiOperation({ summary: SWAGGER_CONSTANTS.SONGS.OPERATIONS.UPDATE })
+  @ApiOperation(SWAGGER.update.operation)
   @ApiBody({ type: UpdateSongDto })
-  @ApiResponse({
-    status: 200,
-    type: SongDto,
-  })
-  @ApiResponse({
-    status: 401,
-    description: SWAGGER_CONSTANTS.SONGS.MESSAGES.NO_AUTHORIZATION,
-  })
-  @ApiResponse({
-    status: 404,
-    type: NotFoundErrorDto,
-  })
-  @ApiResponse({
-    status: 500,
-    description: SWAGGER_CONSTANTS.SONGS.MESSAGES.INTERNAL_SERVER_ERROR,
-  })
+  @ApiResponse(SWAGGER.update.responses.success)
+  @ApiResponse(SWAGGER.update.responses.unauthorized)
+  @ApiResponse(SWAGGER.update.responses.notFound)
+  @ApiResponse(SWAGGER.update.responses.serverError)
   update(@Param('id') id: string, @Body() song: UpdateSongDto): Promise<Song> {
     return this.SongsService.update(id, song);
   }
 
   @Delete(':id')
-  @ApiOperation({ summary: SWAGGER_CONSTANTS.SONGS.OPERATIONS.DELETE })
-  @ApiResponse({
-    status: 200,
-    type: SongDto,
-  })
-  @ApiResponse({
-    status: 401,
-    description: SWAGGER_CONSTANTS.SONGS.MESSAGES.NO_AUTHORIZATION,
-  })
-  @ApiResponse({
-    status: 404,
-    type: NotFoundErrorDto,
-  })
-  @ApiResponse({
-    status: 500,
-    description: SWAGGER_CONSTANTS.SONGS.MESSAGES.INTERNAL_SERVER_ERROR,
-  })
+  @ApiOperation(SWAGGER.delete.operation)
+  @ApiResponse(SWAGGER.delete.responses.success)
+  @ApiResponse(SWAGGER.delete.responses.unauthorized)
+  @ApiResponse(SWAGGER.delete.responses.notFound)
+  @ApiResponse(SWAGGER.delete.responses.serverError)
   delete(@Param('id') id: string): Promise<Song> {
     return this.SongsService.delete(id);
   }
