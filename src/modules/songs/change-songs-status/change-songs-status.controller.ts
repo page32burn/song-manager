@@ -1,15 +1,22 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Put } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 
-import { SubmitSongsService } from './change-songs-status.service';
+import { ChangeSongsStatusService } from './change-songs-status.service';
+import { ChangeSongsStatusDto } from './dto/change-songs-status-dto';
 
 @ApiTags('songs')
 @Controller('songs')
-export class SubmitSongsController {
-  constructor(private readonly SubmitSongsService: SubmitSongsService) {}
+export class ChangeSongsStatusController {
+  constructor(
+    private readonly ChangeSongsStatusService: ChangeSongsStatusService,
+  ) {}
 
-  @Post('submit')
-  submit(@Body() songIds: string[]): Promise<string[]> {
-    return this.SubmitSongsService.submit(songIds);
+  @Put('change-status')
+  async changeStatus(
+    @Body() changeSongStatusDto: ChangeSongsStatusDto,
+  ): Promise<string[]> {
+    return await this.ChangeSongsStatusService.changeStatus(
+      changeSongStatusDto,
+    );
   }
 }

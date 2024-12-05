@@ -1,43 +1,47 @@
 import { Test, TestingModule } from '@nestjs/testing';
 
-import { SubmitSongsController } from '../change-songs-status.controller';
-import { SubmitSongsService } from '../change-songs-status.service';
+import { SongStatus } from '@prisma/client';
 
-describe('SubmitSongsController', () => {
-  let controller: SubmitSongsController;
-  let service: SubmitSongsService;
-  const ids = ['id1', 'id2'];
+import { ChangeSongsStatusController } from '../change-songs-status.controller';
+import { ChangeSongsStatusService } from '../change-songs-status.service';
+import { ChangeSongsStatusDto } from '../dto/change-songs-status-dto';
 
-  const mockSubmitSongsService = {
-    submit: jest.fn((songIds: string[]): { songIds: string[] } => {
-      return {
-        songIds: songIds,
-      };
+describe('ChangeSongsStatusController', () => {
+  let controller: ChangeSongsStatusController;
+  let service: ChangeSongsStatusService;
+  const body: ChangeSongsStatusDto = {
+    songIds: ['1', '2'],
+    status: SongStatus.STOCK,
+  };
+
+  const mockChangeSongstatusService = {
+    changeStatus: jest.fn((body: ChangeSongsStatusDto): string[] => {
+      return body.songIds;
     }),
   };
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      controllers: [SubmitSongsController],
+      controllers: [ChangeSongsStatusController],
       providers: [
         {
-          provide: SubmitSongsService,
-          useValue: mockSubmitSongsService,
+          provide: ChangeSongsStatusService,
+          useValue: mockChangeSongstatusService,
         },
       ],
     }).compile();
 
-    controller = module.get<SubmitSongsController>(SubmitSongsController);
-    service = module.get<SubmitSongsService>(SubmitSongsService);
+    controller = module.get<ChangeSongsStatusController>(
+      ChangeSongsStatusController,
+    );
+    service = module.get<ChangeSongsStatusService>(ChangeSongsStatusService);
   });
 
-  describe('submit', () => {
-    it('should return submitted songs', () => {
-      const result = controller.submit(ids);
-      expect(service.submit).toHaveBeenCalledWith(ids);
-      expect(result).toEqual({
-        songIds: ids,
-      });
+  describe('change-status', () => {
+    it('should return songIds', async () => {
+      const result = await controller.changeStatus(body);
+      expect(service.changeStatus).toHaveBeenCalledWith(body);
+      expect(result).toEqual(body.songIds);
     });
   });
 });
