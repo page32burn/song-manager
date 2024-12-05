@@ -78,6 +78,12 @@ nest g c modules/
 nest g s modules/
 ```
 
+## Swaggerファイルを開く
+
+```bash
+http://localhost:5000/api
+```
+
 ## dockerを落とす時
 
 ```bash
