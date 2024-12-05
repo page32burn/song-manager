@@ -12,7 +12,7 @@ import { ApiBody, ApiOperation, ApiResponse } from '@nestjs/swagger';
 
 import { Tag } from '@prisma/client';
 
-import { SWAGGER_CONSTANTS } from './constants/swagger_constant';
+import { SWAGGER } from './constants/swagger_constant';
 import { CreateTagDto } from './dto/create-tag-dto';
 import { NotFoundErrorDto } from './dto/not-found-error-dto';
 import { TagDto } from './dto/tag-dto';
@@ -24,7 +24,7 @@ export class TagsController {
   constructor(private readonly TagsService: TagsService) {}
 
   @Get()
-  @ApiOperation({ summary: SWAGGER_CONSTANTS.TAGS.OPERATIONS.GET_ALL })
+  @ApiOperation({ summary: SWAGGER.TAGS.OPERATIONS.GET_ALL })
   @ApiResponse({
     status: 200,
     type: TagDto,
@@ -35,7 +35,7 @@ export class TagsController {
   }
 
   @Post()
-  @ApiOperation({ summary: SWAGGER_CONSTANTS.TAGS.OPERATIONS.CREATE })
+  @ApiOperation({ summary: SWAGGER.TAGS.OPERATIONS.CREATE })
   @ApiBody({ type: CreateTagDto })
   @ApiResponse({
     status: 200,
@@ -46,7 +46,7 @@ export class TagsController {
   }
 
   @Put(':id')
-  @ApiOperation({ summary: SWAGGER_CONSTANTS.TAGS.OPERATIONS.UPDATE })
+  @ApiOperation({ summary: SWAGGER.TAGS.OPERATIONS.UPDATE })
   @ApiBody({ type: UpdateTagDto })
   @ApiResponse({
     status: 200,
@@ -61,7 +61,7 @@ export class TagsController {
   }
 
   @Delete(':id')
-  @ApiOperation({ summary: SWAGGER_CONSTANTS.TAGS.OPERATIONS.DELETE })
+  @ApiOperation({ summary: SWAGGER.TAGS.OPERATIONS.DELETE })
   @ApiResponse({
     status: 200,
     type: TagDto,

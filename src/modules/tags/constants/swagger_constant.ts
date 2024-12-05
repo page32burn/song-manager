@@ -1,4 +1,4 @@
-export const SWAGGER_CONSTANTS = {
+export const SWAGGER = {
   TAGS: {
     TAGS: 'songs',
     OPERATIONS: {

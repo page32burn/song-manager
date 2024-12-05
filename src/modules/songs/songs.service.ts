@@ -8,7 +8,7 @@ import { Song } from '@prisma/client';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 
 import { MESSAGES } from './constants/message';
-import { SONGS_CONSTANTS } from './constants/song_constant';
+import { SONGS } from './constants/song';
 import { CreateSongDto } from './dto/create-song-dto';
 import { UpdateSongDto } from './dto/update-song-dto';
 import { PrismaService } from '../../prisma/prisma.service';
@@ -20,7 +20,7 @@ export class SongsService {
   async get(): Promise<Song[]> {
     try {
       return await this.prisma.song.findMany({
-        include: SONGS_CONSTANTS.INCLUDE.TAGS,
+        include: SONGS.INCLUDE.TAGS,
       });
     } catch {
       throw new BadRequestException(MESSAGES.SONGS.ERRORS.GET_FAILED);
@@ -31,7 +31,7 @@ export class SongsService {
     try {
       const song = await this.prisma.song.findUnique({
         where: { id },
-        include: SONGS_CONSTANTS.INCLUDE.TAGS,
+        include: SONGS.INCLUDE.TAGS,
       });
 
       if (!song)
@@ -52,18 +52,14 @@ export class SongsService {
             connect: createSongDto.tagIds?.map((id) => ({ id })) || [],
           },
         },
-        include: SONGS_CONSTANTS.INCLUDE.TAGS,
+        include: SONGS.INCLUDE.TAGS,
       });
     } catch (error) {
       if (error instanceof PrismaClientKnownRequestError) {
-        if (
-          error.code === SONGS_CONSTANTS.PRISMA_ERROR_CODES.UNIQUE_CONSTRAINT
-        ) {
+        if (error.code === SONGS.PRISMA_ERROR_CODES.UNIQUE_CONSTRAINT) {
           throw new BadRequestException(MESSAGES.SONGS.ERRORS.DUPLICATE_NAME);
         }
-        if (
-          error.code === SONGS_CONSTANTS.PRISMA_ERROR_CODES.RECORD_NOT_FOUND
-        ) {
+        if (error.code === SONGS.PRISMA_ERROR_CODES.RECORD_NOT_FOUND) {
           throw new BadRequestException(MESSAGES.SONGS.ERRORS.TAG_NOT_FOUND);
         }
       }
@@ -75,7 +71,7 @@ export class SongsService {
     try {
       const existingSong = await this.prisma.song.findUnique({
         where: { id },
-        include: SONGS_CONSTANTS.INCLUDE.TAGS,
+        include: SONGS.INCLUDE.TAGS,
       });
       if (!existingSong)
         throw new NotFoundException(MESSAGES.SONGS.ERRORS.NOT_FOUND(id));
@@ -88,21 +84,17 @@ export class SongsService {
             set: data.tagIds?.map((id) => ({ id })) || [],
           },
         },
-        include: SONGS_CONSTANTS.INCLUDE.TAGS,
+        include: SONGS.INCLUDE.TAGS,
       });
     } catch (error) {
       if (error instanceof NotFoundException) {
         throw error;
       }
       if (error instanceof PrismaClientKnownRequestError) {
-        if (
-          error.code === SONGS_CONSTANTS.PRISMA_ERROR_CODES.UNIQUE_CONSTRAINT
-        ) {
+        if (error.code === SONGS.PRISMA_ERROR_CODES.UNIQUE_CONSTRAINT) {
           throw new BadRequestException(MESSAGES.SONGS.ERRORS.DUPLICATE_NAME);
         }
-        if (
-          error.code === SONGS_CONSTANTS.PRISMA_ERROR_CODES.RECORD_NOT_FOUND
-        ) {
+        if (error.code === SONGS.PRISMA_ERROR_CODES.RECORD_NOT_FOUND) {
           throw new BadRequestException(MESSAGES.SONGS.ERRORS.TAG_NOT_FOUND);
         }
       }
@@ -124,7 +116,7 @@ export class SongsService {
     } catch (error) {
       if (
         error instanceof PrismaClientKnownRequestError &&
-        error.code === SONGS_CONSTANTS.PRISMA_ERROR_CODES.RECORD_NOT_FOUND
+        error.code === SONGS.PRISMA_ERROR_CODES.RECORD_NOT_FOUND
       ) {
         throw new NotFoundException(MESSAGES.SONGS.ERRORS.NOT_FOUND(id));
       }

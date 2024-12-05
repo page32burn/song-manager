@@ -1,4 +1,4 @@
-export const SONGS_CONSTANTS = {
+export const SONGS = {
   ROUTES: {
     BASE: 'songs',
     BY_ID: ':id',

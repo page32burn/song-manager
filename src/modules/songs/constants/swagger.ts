@@ -1,4 +1,4 @@
-import { SWAGGER_CONSTANTS } from './swagger_constant';
+import { SWAGGER_CONSTANTS } from './swagger-constant';
 import { NotFoundErrorDto } from '../dto/not-found-error-dto';
 import { SongDto } from '../dto/song-dto';
 
