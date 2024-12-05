@@ -1,16 +1,14 @@
 import { Injectable } from '@nestjs/common';
 
-import { ChangeSongsStatusDto } from './dto/change-songs-status-dto';
+import { PutSongStatusDto } from './dto/put-song-status-dto';
 import { PrismaService } from '../../../prisma/prisma.service';
 
 @Injectable()
-export class ChangeSongsStatusService {
+export class SongStatusService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async changeStatus(
-    changeSongStatusDto: ChangeSongsStatusDto,
-  ): Promise<string[]> {
-    const { songIds, status } = changeSongStatusDto;
+  async changeStatus(body: PutSongStatusDto): Promise<string[]> {
+    const { songIds, status } = body;
 
     await this.prisma.$transaction(async (prisma) => {
       await prisma.song.updateMany({

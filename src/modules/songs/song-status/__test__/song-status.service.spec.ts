@@ -2,18 +2,18 @@ import { Test, TestingModule } from '@nestjs/testing';
 
 import { SongStatus } from '@prisma/client';
 
-import { ChangeSongsStatusService } from '../change-songs-status.service';
-import { ChangeSongsStatusDto } from '../dto/change-songs-status-dto';
+import { PutSongStatusDto } from '../dto/put-song-status-dto';
+import { SongStatusService } from '../song-status.service';
 
 describe('SubmitSongsService', () => {
-  let service: ChangeSongsStatusService;
-  const body: ChangeSongsStatusDto = {
+  let service: SongStatusService;
+  const body: PutSongStatusDto = {
     songIds: ['1', '2'],
     status: SongStatus.STOCK,
   };
 
   const mockSubmitSongsService = {
-    changeStatus: jest.fn((body: ChangeSongsStatusDto): string[] => {
+    changeStatus: jest.fn((body: PutSongStatusDto): string[] => {
       return body.songIds;
     }),
   };
@@ -22,13 +22,13 @@ describe('SubmitSongsService', () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         {
-          provide: ChangeSongsStatusService,
+          provide: SongStatusService,
           useValue: mockSubmitSongsService,
         },
       ],
     }).compile();
 
-    service = module.get<ChangeSongsStatusService>(ChangeSongsStatusService);
+    service = module.get<SongStatusService>(SongStatusService);
   });
 
   it('should be defined', () => {

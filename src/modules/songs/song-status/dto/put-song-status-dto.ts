@@ -9,7 +9,7 @@ import {
   IsString,
 } from 'class-validator';
 
-export class ChangeSongsStatusDto {
+export class PutSongStatusDto {
   @ApiProperty({
     example: ['1', '2'],
     description: '楽曲ID',

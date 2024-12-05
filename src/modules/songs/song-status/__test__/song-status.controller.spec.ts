@@ -2,39 +2,37 @@ import { Test, TestingModule } from '@nestjs/testing';
 
 import { SongStatus } from '@prisma/client';
 
-import { ChangeSongsStatusController } from '../change-songs-status.controller';
-import { ChangeSongsStatusService } from '../change-songs-status.service';
-import { ChangeSongsStatusDto } from '../dto/change-songs-status-dto';
+import { PutSongStatusDto } from '../dto/put-song-status-dto';
+import { SongStatusController } from '../song-status.controller';
+import { SongStatusService } from '../song-status.service';
 
 describe('ChangeSongsStatusController', () => {
-  let controller: ChangeSongsStatusController;
-  let service: ChangeSongsStatusService;
-  const body: ChangeSongsStatusDto = {
+  let controller: SongStatusController;
+  let service: SongStatusService;
+  const body: PutSongStatusDto = {
     songIds: ['1', '2'],
     status: SongStatus.STOCK,
   };
 
   const mockChangeSongstatusService = {
-    changeStatus: jest.fn((body: ChangeSongsStatusDto): string[] => {
+    changeStatus: jest.fn((body: PutSongStatusDto): string[] => {
       return body.songIds;
     }),
   };
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      controllers: [ChangeSongsStatusController],
+      controllers: [SongStatusController],
       providers: [
         {
-          provide: ChangeSongsStatusService,
+          provide: SongStatusService,
           useValue: mockChangeSongstatusService,
         },
       ],
     }).compile();
 
-    controller = module.get<ChangeSongsStatusController>(
-      ChangeSongsStatusController,
-    );
-    service = module.get<ChangeSongsStatusService>(ChangeSongsStatusService);
+    controller = module.get<SongStatusController>(SongStatusController);
+    service = module.get<SongStatusService>(SongStatusService);
   });
 
   describe('change-status', () => {
