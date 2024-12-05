@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 
-import { SubmitSongsController } from '../submit-songs.controller';
-import { SubmitSongsService } from '../submit-songs.service';
+import { SubmitSongsController } from '../change-songs-status.controller';
+import { SubmitSongsService } from '../change-songs-status.service';
 
 describe('SubmitSongsController', () => {
   let controller: SubmitSongsController;

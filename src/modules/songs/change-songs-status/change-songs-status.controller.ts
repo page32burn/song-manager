@@ -1,7 +1,7 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 
-import { SubmitSongsService } from './submit-songs.service';
+import { SubmitSongsService } from './change-songs-status.service';
 
 @ApiTags('songs')
 @Controller('songs')
