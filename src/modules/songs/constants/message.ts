@@ -16,4 +16,11 @@ export const MESSAGES = {
       DELETED: '楽曲を削除しました',
     },
   },
+  SONGS_STATUS: {
+    ERRORS: {
+      NOT_FOUND: (ids: string[]) =>
+        `以下のIDの楽曲が見つかりません: ${ids.join(', ')}`,
+      UPDATE_FAILED: '楽曲のステータスの更新に失敗しました',
+    },
+  },
 } as const;
