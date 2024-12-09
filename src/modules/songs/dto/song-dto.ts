@@ -18,7 +18,7 @@ export class SongDto implements Partial<Song> {
 
   @Type(() => String)
   @ApiProperty({
-    example: Object.values(SongStatus),
+    example: SongStatus.STOCK,
     description: 'ステータス',
   })
   status: SongStatus;
